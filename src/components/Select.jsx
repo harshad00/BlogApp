@@ -1,7 +1,7 @@
 import React, {useId} from 'react';
 
 function Select({
-    option,
+    options,
     labal,
     className="",
     ...props
@@ -19,7 +19,7 @@ function Select({
           text-black outline-none focus:bg-gray-50
           duration-200 botder boredr-gray-200 w-full ${className} `}
          name="">
-            {option?.map((option) => (
+            {options?.map((option) => (
                 <option key={option} value={option}>
                     {option}
                     </option>

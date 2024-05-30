@@ -3,6 +3,7 @@ import React,{useEffect, useState} from 'react';
 import {Container, PostForm}  from '../components';
 import appwritService from '../appwrit/confing'
 import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 function EditPost() {

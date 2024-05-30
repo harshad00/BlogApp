@@ -12,5 +12,19 @@ import Login from "./Login";
 import PostCart from "./PostCart";
 import Signup from "./Signup";
 import PostForm from "./post-form/PostForm";
-export { Header ,
-    Login, Footer, Container, Logo, LogoutBtn, Button, Input, Select, RTE , AuthLayout, PostCart, Signup, PostForm} 
+export {
+  Header,
+  Login,
+  Footer,
+  Container,
+  Logo,
+  LogoutBtn,
+  Button,
+  Input,
+  Select,
+  RTE,
+  AuthLayout,
+  PostCart,
+  Signup,
+  PostForm,
+};

@@ -1,5 +1,7 @@
 import conf from "../conf/conf.js";
 import { Client, Account, ID } from "appwrite";
+
+
 export class AuthService {
   client = new Client();
   account;
@@ -11,7 +13,8 @@ export class AuthService {
     this.account = new Account(this.client);
   }
 
-  async createAccount({ email, password, name }) {
+
+  async createAccount({ email, password, name, }) {
     // eslint-disable-next-line no-useless-catch
     try {
       const userAccount = await this.account.create(
@@ -34,7 +37,7 @@ export class AuthService {
   async login({ email, password }) {
     // eslint-disable-next-line no-useless-catch
     try {
-      return await this.account.createEmailSession(email, password);
+      return await this.account.createEmailSession(email, password, name);
     } catch (error) {
       throw error;
     }
@@ -46,7 +49,6 @@ export class AuthService {
     } catch (error) {
       console.log("Appwrite serive :: getCurrentUser :: error", error);
     }
-
     return null;
   }
 

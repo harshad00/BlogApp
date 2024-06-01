@@ -7,6 +7,8 @@ import { useSelector } from "react-redux";
 
 export default function Post() {
     const [post, setPost] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [loadingD, setLoadingD] = useState(false);
     const { slug } = useParams();
     const navigate = useNavigate();
 
@@ -24,16 +26,24 @@ export default function Post() {
     }, [slug, navigate]);
 
     const deletePost = () => {
+        setLoadingD(true);
         appwriteService.deletePost(post.$id).then((status) => {
             if (status) {
                 appwriteService.deleteFile(post.featuredImage);
                 navigate("/");
+            } else {
+                setLoadingD(false);
             }
         });
     };
 
+    const handleEdit = () => {
+        setLoading(true);
+        navigate(`/edit-post/${post.$id}`);
+    };
+
     return post ? (
-        <div className="py-8">
+        <div className="py-8 h-screen">
             <Container>
                 <div className="w-full flex justify-center mb-4 relative border rounded-xl p-2">
                     <img
@@ -43,24 +53,24 @@ export default function Post() {
                     />
 
                     {isAuthor && (
-                        <div className="absolute right-6 top-6">
-                            <Link to={`/edit-post/${post.$id}`}>
-                                <Button bgColor="bg-green-500" className="mr-3">
-                                    Edit
-                                </Button>
-                            </Link>
-                            <Button bgColor="bg-red-500" onClick={deletePost}>
-                                Delete
+                        <div className="absolute right-6 top-6 ">
+                            <Button bgColor="bg-green-500" className="mr-3 w-[100px]" onClick={handleEdit} disabled={loading}>
+                                {loading ? "Loading..." : "Edit"}
+                            </Button>
+                            <Button bgColor="bg-red-500" onClick={deletePost} className="w-[100px]" disabled={loading}>
+                                {loadingD ? "Loading..." : "Delete"}
                             </Button>
                         </div>
                     )}
                 </div>
-                <div className="w-full mb-6">
-                    <h1 className="text-2xl font-bold">{post.title}</h1>
+                <div className="w-full mb-6 flex justify-center flex-col items-center ">
+                    <h1 className="text-2xl font-bold ">{post.title}</h1>
+                    <div className="w-[50%] h-[2px] bg-black m-1" ></div>
                 </div>
-                <div className="browser-css">
+                <div className=" border rounded-xl px-3 flex overflow-scroll">
+                   
                     {parse(post.content)}
-                    </div>
+                </div>
             </Container>
         </div>
     ) : null;

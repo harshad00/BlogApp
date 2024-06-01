@@ -16,7 +16,7 @@ function Login() {
     setError("");
 
     try {
-      const session = await authService.login(data)
+      const session = await authService.login(data);
       if (session) {
         const userData = await authService.getCurrentUser();
         if (userData) dispatch(authLogin(userData));
@@ -25,7 +25,7 @@ function Login() {
     } catch (error) {
       setError(error.message);
     }
-  }
+  };
   return (
     <div className="flex items-center justify-center w-full">
       <div
